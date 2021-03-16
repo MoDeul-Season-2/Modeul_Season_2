@@ -57,6 +57,7 @@ PROJECT_APPS = [
     "core.apps.CoreConfig",
     "houses.apps.HousesConfig",
     "users.apps.UsersConfig",
+    "apply.apps.ApplyConfig",
 ]
 
 THIRD_PARTY_APPS = ["rest_framework"]
