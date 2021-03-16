@@ -11,3 +11,6 @@ class Apply(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.house
+
+    class Meta:
+        verbose_name_plural = "Applies"
