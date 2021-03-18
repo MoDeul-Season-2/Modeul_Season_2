@@ -6,7 +6,7 @@ from .models import House
 
 
 class HouseView(APIView):
-
+    # POST /houses
     def post(self, request):
         house_serializer = HouseSerializer(data=request.data)
         if house_serializer.is_valid():
@@ -15,6 +15,8 @@ class HouseView(APIView):
         else:
             return Response(house_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # GET /houses
+    # GET /houses/{house_id}
     def get(self, request, **kwargs):
         if kwargs.get('id') is None:
             house_queryset = House.objects.all()
@@ -25,6 +27,7 @@ class HouseView(APIView):
             house_serializer = HouseSerializer(House.objects.get(id=id))
             return Response(house_serializer.data, status=status.HTTP_200_OK)
 
+    # PUT /houses/{house_id}
     def put(self, request, **kwargs):
         if kwargs.get('id') is None:
             return Response('Invalid Request', status=status.HTTP_400_BAD_REQUEST)
@@ -39,6 +42,7 @@ class HouseView(APIView):
             else:
                 return Response("Invalid Request", status=status.HTTP_400_BAD_REQUEST)
 
+    # DELETE /houses/{house_id}
     def delete(self, request, **kwargs):
         if kwargs.get('id') is None:
             return Response('Invalid Request', status=status.HTTP_400_BAD_REQUEST)
