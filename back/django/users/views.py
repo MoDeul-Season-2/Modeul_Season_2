@@ -7,6 +7,7 @@ from .models import User
 
 class UserView(APIView):
 
+    # POST /users
     def post(self, request):
         user_serializer = UserSerializer(data=request.data)
         if user_serializer.is_valid():
@@ -15,6 +16,7 @@ class UserView(APIView):
         else:
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # GET /users/{user_id}
     def get(self, request, **kwargs):
         if kwargs.get('id') is None:
             user_queryset = User.objects.all()
@@ -25,6 +27,7 @@ class UserView(APIView):
             user_serializer = UserSerializer(User.objects.get(id=id))
             return Response(user_serializer.data, status=status.HTTP_200_OK)
 
+    # PUT /users/{user_id}
     def put(self, request, **kwargs):
         if kwargs.get('id') is None:
             return Response("invalid Request", status=status.HTTP_400_BAD_REQUEST)
@@ -39,6 +42,7 @@ class UserView(APIView):
             else:
                 return Response("invalid Request", status=status.HTTP_400_BAD_REQUEST)
 
+    # DELETE /users/{user_id}
     def delete(self, request, **kwargs):
         if kwargs.get('id') is None:
             return Response('invalid Request', status=status.HTTP_400_BAD_REQUEST)
